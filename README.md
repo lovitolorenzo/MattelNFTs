@@ -1,2 +1,0 @@
-# MattelNFTs
-Mattel NFT Project
