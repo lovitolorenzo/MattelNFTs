@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import "dotenv/config.js";
-mongoose.set('strictQuery', true); // or use false
+mongoose.set("strictQuery", true); // or use false
+import console from "console-browserify";
 
 const connectDB = async () => {
 	try {

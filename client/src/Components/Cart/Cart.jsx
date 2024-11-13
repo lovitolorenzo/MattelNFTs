@@ -9,25 +9,25 @@ import trial5 from "../../Assets/trial5.png";
 import CartIcon from "../UI/CartIcon/CartIcon";
 
 const Cart = () => {
-  return (
-    <>
-      <div className={classes.cart_container}>
-        <h1 className={classes.cart_text}>
-          Your Cart <CartIcon />{" "}
-        </h1>
-        <div className={classes.cart_products}>
-          <ProductCard image={trial2} />
-          <ProductCard image={trial3} />
-          <ProductCard image={trial4} />
-          <ProductCard image={trial3} />
-          <ProductCard image={trial5} />
-          <ProductCard image={trial2} />
-          <ProductCard image={trial5} />
-          <ProductCard image={trial4} />
-        </div>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className={classes.cart_container}>
+				<h1 className={classes.cart_text}>
+					Your Cart <CartIcon />{" "}
+				</h1>
+				<div className={classes.cart_products}>
+					<ProductCard image={trial2} />
+					<ProductCard image={trial3} />
+					<ProductCard image={trial4} />
+					<ProductCard image={trial3} />
+					<ProductCard image={trial5} />
+					<ProductCard image={trial2} />
+					<ProductCard image={trial5} />
+					<ProductCard image={trial4} />
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Cart;

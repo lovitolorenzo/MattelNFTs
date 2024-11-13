@@ -5,10 +5,10 @@ import classes from "./VerifyNft.module.css";
 import { useWeb3Contract, useMoralis } from "react-moralis";
 import { useNotification } from "@web3uikit/core";
 import abi from "../../Constants/abi.json";
+import console from "console-browserify";
 
 const VerifyNft = () => {
-	const { enableWeb3, isWeb3Enabled, account, Moralis, deactivateWeb3 } =
-		useMoralis();
+	const { enableWeb3, isWeb3Enabled, account, Moralis, deactivateWeb3 } = useMoralis();
 
 	const contractAddress = "0x171F6Cd3aaa32a6f1cFDAa63fF0a2d056473C569";
 
@@ -50,16 +50,14 @@ const VerifyNft = () => {
 			tokenId: inputNum,
 		},
 	});
-	const { runContractFunction: getWarrantyDurationInSeconds } = useWeb3Contract(
-		{
-			abi,
-			contractAddress,
-			functionName: "getCurrentWarrantyDuration",
-			params: {
-				tokenId: inputNum,
-			},
+	const { runContractFunction: getWarrantyDurationInSeconds } = useWeb3Contract({
+		abi,
+		contractAddress,
+		functionName: "getCurrentWarrantyDuration",
+		params: {
+			tokenId: inputNum,
 		},
-	);
+	});
 
 	const handleNotification = (message, title) => {
 		dispatch({
@@ -77,10 +75,7 @@ const VerifyNft = () => {
 	const handleError = (error) => {
 		console.log(error);
 		setOwnerAddress("");
-		handleNotification(
-			"Transaction UnSuccessful! Make sure you are connected to the right account",
-			"Tx Notification",
-		);
+		handleNotification("Transaction UnSuccessful! Make sure you are connected to the right account", "Tx Notification");
 	};
 
 	const handleSubmit = async (e) => {
@@ -135,21 +130,14 @@ const VerifyNft = () => {
 							</div>
 						</form>
 					</Card>
-					{isWeb3Enabled && ownerAddress && (
-						<h4 className={classes.verify_text}>
-							NFT is owned by {ownerAddress}
-						</h4>
-					)}
+					{isWeb3Enabled && ownerAddress && <h4 className={classes.verify_text}>NFT is owned by {ownerAddress}</h4>}
 					{isWeb3Enabled && warrantyDuration && (
 						<h4 className={classes.verify_text} style={{ paddingTop: "1rem" }}>
-							Warranty Duration is {warrantyDuration}{" "}
-							{warrantyDuration === 1 ? "Year" : "Years"}
+							Warranty Duration is {warrantyDuration} {warrantyDuration === 1 ? "Year" : "Years"}
 						</h4>
 					)}
 					{ownerAddress === currentWalletAddress && (
-						<h4 className={classes.verify_text}>
-							You are the owner of this NFT!
-						</h4>
+						<h4 className={classes.verify_text}>You are the owner of this NFT!</h4>
 					)}
 				</div>
 			</div>

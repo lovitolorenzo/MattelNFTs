@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import console from "console-browserify";
 
 const sellerSchema = new Schema(
 	{

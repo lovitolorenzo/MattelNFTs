@@ -7,6 +7,7 @@ import sgMail from "@sendgrid/mail";
 import dotenv from "dotenv";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
+import console from "console-browserify";
 
 dotenv.config();
 
@@ -198,9 +199,7 @@ const addProductToWishList = asyncHandler(async (req, res) => {
 });
 
 const getPurchasedProducts = asyncHandler(async (req, res) => {
-	const user = await User.findById(req.user._id)
-		.populate("purchasedProducts")
-		.exec();
+	const user = await User.findById(req.user._id).populate("purchasedProducts").exec();
 
 	const finalProducts = user.purchasedProducts.map((product) => {
 		if (product.image) {
@@ -244,7 +243,6 @@ const getPurchasedProducts = asyncHandler(async (req, res) => {
 
 	res.status(200).json({ purchasedProducts: finalProducts });
 });
-
 
 const removeProductFromWishList = asyncHandler(async (req, res) => {
 	const {
@@ -319,9 +317,7 @@ const updateProductToken = asyncHandler(async (req, res) => {
 });
 
 const getProductsReadyForSale = asyncHandler(async (req, res) => {
-	let productsReadyForSale = await Seller.findById(req.seller._id)
-		.populate("products")
-		.exec();
+	let productsReadyForSale = await Seller.findById(req.seller._id).populate("products").exec();
 
 	const filteredProducts = productsReadyForSale.products.filter((p) => {
 		return p.isReadyForSale === true;
@@ -366,7 +362,6 @@ const getProductsReadyForSale = asyncHandler(async (req, res) => {
 	});
 	res.status(200).json({ productsReadyForSale: finalProducts });
 });
-
 
 export {
 	getProducts,

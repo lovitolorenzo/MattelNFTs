@@ -4,12 +4,8 @@ import axios from "axios";
 import productReducer from "./productReducer";
 import productContext from "./productContext";
 // import { setAuthSellerToken } from "../../utils/setAuthToken";
-import {
-	GET_ALL_PRODUCTS,
-	GET_SINGLE_PRODUCT,
-	GET_PRODUCTS_BY_CATEGORY,
-	GET_PURCHASED_PRODUCTS,
-} from "../types";
+import { GET_ALL_PRODUCTS, GET_SINGLE_PRODUCT, GET_PRODUCTS_BY_CATEGORY, GET_PURCHASED_PRODUCTS } from "../types";
+import console from "console-browserify";
 
 const ProductState = (props) => {
 	const initialState = {
@@ -29,11 +25,7 @@ const ProductState = (props) => {
 		};
 
 		try {
-			const res = await axios.post(
-				`/api/product/${id}`,
-				{ tId: tokenId },
-				config,
-			);
+			const res = await axios.post(`/api/product/${id}`, { tId: tokenId }, config);
 			console.log(res.data);
 			// dispatch({ type: GET_SINGLE_PRODUCT, payload: res.data });
 		} catch (error) {
@@ -50,11 +42,7 @@ const ProductState = (props) => {
 		};
 
 		try {
-			const res = await axios.put(
-				`/api/product/token/${id}`,
-				{ tId: tokenId, userId },
-				config,
-			);
+			const res = await axios.put(`/api/product/token/${id}`, { tId: tokenId, userId }, config);
 			console.log(res.data);
 			// dispatch({ type: GET_SINGLE_PRODUCT, payload: res.data });
 		} catch (error) {
@@ -87,11 +75,7 @@ const ProductState = (props) => {
 			},
 		};
 		try {
-			const res = await axios.post(
-				`/api/product/purchase/${productId}`,
-				{ walletAddress },
-				config,
-			);
+			const res = await axios.post(`/api/product/purchase/${productId}`, { walletAddress }, config);
 			console.log(res);
 		} catch (error) {
 			console.log(error);
@@ -123,11 +107,7 @@ const ProductState = (props) => {
 		};
 
 		try {
-			const res = await axios.post(
-				"/api/products/category",
-				{ category: name },
-				config,
-			);
+			const res = await axios.post("/api/products/category", { category: name }, config);
 			console.log(res);
 			dispatch({ type: GET_PRODUCTS_BY_CATEGORY, payload: res.data.products });
 			return res.data.products;

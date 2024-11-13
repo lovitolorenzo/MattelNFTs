@@ -7,6 +7,7 @@ import { ProductCard } from "../UI";
 // import trial5 from "../../Assets/trial5.png";
 // import CartIcon from "../UI/CartIcon/CartIcon";
 import { productContext } from "../../Contexts";
+import console from "console-browserify";
 
 const Explore = () => {
 	const { getAllProducts, allProducts } = useContext(productContext);
@@ -17,21 +18,11 @@ const Explore = () => {
 	return (
 		<>
 			<div className={classes.cart_container}>
-				<h1 className={classes.cart_text}>
-					Explore our Products ✨{/* <CartIcon />{" "} */}
-				</h1>
+				<h1 className={classes.cart_text}>Explore our Products ✨{/* <CartIcon />{" "} */}</h1>
 				<div className={classes.cart_products}>
 					{allProducts.length > 0 &&
 						allProducts.map((p, i) => {
-							return (
-								<ProductCard
-									key={i}
-									id={p._id}
-									image={p.image}
-									name={p.title}
-									price={p.price}
-								/>
-							);
+							return <ProductCard key={i} id={p._id} image={p.image} name={p.title} price={p.price} />;
 						})}
 				</div>
 			</div>

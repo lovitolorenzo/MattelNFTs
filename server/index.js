@@ -8,7 +8,8 @@ import productRouter from "./routes/product.js";
 import sellerRouter from "./routes/seller.js";
 import userAuthRouter from "./routes/authRoutes/userAuth.js";
 import sellerAuthRouter from "./routes/authRoutes/sellerAuth.js";
-import errHandler from "./utils/error.cjs"
+import errHandler from "./utils/error.cjs";
+import console from "console-browserify";
 
 const PORT = process.env.PORT;
 
@@ -32,5 +33,5 @@ app.use(sellerRouter);
 app.use(productRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on ${PORT}`);
+	console.log(`Server running in ${process.env.NODE_ENV} mode on ${PORT}`);
 });

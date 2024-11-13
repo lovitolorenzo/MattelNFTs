@@ -5,11 +5,8 @@ import { useNotification } from "@web3uikit/core";
 import { useParams, useNavigate } from "react-router-dom";
 import classes from "./Product.module.css";
 import abi from "../../Constants/abi.json";
-import {
-	productContext,
-	sellerAuthContext,
-	userAuthContext,
-} from "../../Contexts";
+import { productContext, sellerAuthContext, userAuthContext } from "../../Contexts";
+import console from "console-browserify";
 
 const Product = () => {
 	const contractAddress = "0x171F6Cd3aaa32a6f1cFDAa63fF0a2d056473C569";
@@ -19,13 +16,8 @@ const Product = () => {
 	const [isSold, setIsSold] = useState(false);
 	const [warrantyDuration, setWarrantyDuration] = useState(null);
 
-	const {
-		getSingleProduct,
-		product,
-		orderProduct,
-		dispatchProductWithWarranty,
-		updateProductToken,
-	} = useContext(productContext);
+	const { getSingleProduct, product, orderProduct, dispatchProductWithWarranty, updateProductToken } =
+		useContext(productContext);
 	const { isSellerAuthenticated } = useContext(sellerAuthContext);
 	const { isUserAuthenticated } = useContext(userAuthContext);
 	const { productId } = useParams();
@@ -53,10 +45,9 @@ const Product = () => {
 		params: {
 			to: sellerWalletAddress,
 			uri: {
-				"name": `${title}`,
-				"description": `${description}`,
-				"image":
-					"https://images.pexels.com/photos/1311590/pexels-photo-1311590.jpeg?auto=compress&cs=tinysrgb&w=600",
+				name: `${title}`,
+				description: `${description}`,
+				image: "https://images.pexels.com/photos/1311590/pexels-photo-1311590.jpeg?auto=compress&cs=tinysrgb&w=600",
 			},
 		},
 	});
@@ -94,14 +85,7 @@ const Product = () => {
 
 	const redirect = useNavigate();
 
-	const {
-		enableWeb3,
-		isWeb3Enabled,
-		isWeb3EnableLoading,
-		account,
-		Moralis,
-		deactivateWeb3,
-	} = useMoralis();
+	const { enableWeb3, isWeb3Enabled, isWeb3EnableLoading, account, Moralis, deactivateWeb3 } = useMoralis();
 
 	useEffect(() => {
 		const getProduct = async () => {
@@ -164,32 +148,24 @@ const Product = () => {
 
 	const handleError = (error) => {
 		console.log(error);
-		handleNotification(
-			"Transaction UnSuccessful! Make sure you are connected to the right account",
-			"Tx Notification",
-		);
+		handleNotification("Transaction UnSuccessful! Make sure you are connected to the right account", "Tx Notification");
 	};
 
-	let hasProductTokenId =
-		productTokenId === undefined || tokenId === null ? false : true;
+	let hasProductTokenId = productTokenId === undefined || tokenId === null ? false : true;
 
 	const handleDispatch = async (productId, tokenId) => {
 		if (hasProductTokenId && hasWarranty) {
 			await dispatchProductWithWarranty(productId, tokenId);
 			handleSuccess("Product Dispatched...!", "Notification");
 		} else {
-			handleSuccess(
-				"Product Dispatch Unsuccessful! Please check everything!",
-				"Notification",
-			);
+			handleSuccess("Product Dispatch Unsuccessful! Please check everything!", "Notification");
 		}
 	};
 
 	const handleCreateWarrantyCard = async () => {
 		try {
 			const res = await createWarrantyCard({
-				onSuccess: () =>
-					handleSuccess("Transaction Successful!", "Tx Notification"),
+				onSuccess: () => handleSuccess("Transaction Successful!", "Tx Notification"),
 				onError: (error) => handleError(error),
 			});
 
@@ -210,8 +186,7 @@ const Product = () => {
 		try {
 			console.log("ej");
 			const res = await setDurationForTokenId({
-				onSuccess: () =>
-					handleSuccess("Transaction Successful!", "Tx Notification"),
+				onSuccess: () => handleSuccess("Transaction Successful!", "Tx Notification"),
 				onError: (error) => handleError(error),
 			});
 			console.log(res);
@@ -224,8 +199,7 @@ const Product = () => {
 		setTokenId(productTokenId);
 		try {
 			const res2 = await changeWarrantyPeriod({
-				onSuccess: () =>
-					handleSuccess("Transaction Successful!", "Tx Notification"),
+				onSuccess: () => handleSuccess("Transaction Successful!", "Tx Notification"),
 				onError: (error) => handleError(error),
 			});
 			console.log(res2);
@@ -238,8 +212,7 @@ const Product = () => {
 
 		try {
 			await transferWarrantyCard({
-				onSuccess: () =>
-					handleSuccess("Transaction Successful!", "Tx Notification"),
+				onSuccess: () => handleSuccess("Transaction Successful!", "Tx Notification"),
 				onError: (error) => handleError(error),
 			});
 			return;
@@ -263,43 +236,23 @@ const Product = () => {
 						<h3 className={classes.product_name}>Category: {category}</h3>
 						<p className={classes.product_description}>{description}</p>
 						{isUserAuthenticated && isSold && (
-							<p className={classes.product_description}>
-								TokenId for warranty is:{tokenId}
-							</p>
+							<p className={classes.product_description}>TokenId for warranty is:{tokenId}</p>
 						)}
 						<div className={classes.price_container}>
 							<span className={classes.price}>{price}</span>
 						</div>
 						{hasWarranty && !isSold && (
-							<h4>
-								Product available with warranty of{" "}
-								{warrantyDurationInSeconds / (3600 * 365 * 24)} years
-							</h4>
+							<h4>Product available with warranty of {warrantyDurationInSeconds / (3600 * 365 * 24)} years</h4>
 						)}
 						<div className={classes.btn}>
 							{isUserAuthenticated && !isSold && (
-								<CustomButton
-									onClick={() => handleClick(productId)}
-									label="BUY"
-									padding="0.5em 11em"
-									filled
-								/>
+								<CustomButton onClick={() => handleClick(productId)} label="BUY" padding="0.5em 11em" filled />
 							)}
-							{!authorizedPerson && (
-								<CustomButton
-									onClick={unauthorized}
-									label="LOGIN"
-									padding="0.5em 11em"
-									filled
-								/>
-							)}
+							{!authorizedPerson && <CustomButton onClick={unauthorized} label="LOGIN" padding="0.5em 11em" filled />}
 							<CustomButton
 								label={
 									isWeb3Enabled
-										? `Connected to ${account.slice(0, 4)}...${account.slice(
-												39,
-												account.length,
-										  )}`
+										? `Connected to ${account.slice(0, 4)}...${account.slice(39, account.length)}`
 										: "Connect Wallet"
 								}
 								filled
@@ -307,28 +260,17 @@ const Product = () => {
 								onClick={connectWallet}
 								disabled={isWeb3EnableLoading}
 							/>
-							{isWeb3Enabled &&
-								isSellerAuthenticated &&
-								!hasProductTokenId &&
-								hasWarranty && (
-									<CustomButton
-										onClick={handleCreateWarrantyCard}
-										label="Create Warranty Card NFT"
-										padding="0.5em 7em"
-										filled
-									/>
-								)}
-							{isWeb3Enabled &&
-								!isSold &&
-								isSellerAuthenticated &&
-								hasWarranty && (
-									<CustomButton
-										onClick={handleAddWarrantyDuration}
-										label="Add Duration"
-										padding="0.5em 7em"
-										filled
-									/>
-								)}
+							{isWeb3Enabled && isSellerAuthenticated && !hasProductTokenId && hasWarranty && (
+								<CustomButton
+									onClick={handleCreateWarrantyCard}
+									label="Create Warranty Card NFT"
+									padding="0.5em 7em"
+									filled
+								/>
+							)}
+							{isWeb3Enabled && !isSold && isSellerAuthenticated && hasWarranty && (
+								<CustomButton onClick={handleAddWarrantyDuration} label="Add Duration" padding="0.5em 7em" filled />
+							)}
 							{isWeb3Enabled &&
 								isSellerAuthenticated &&
 								!isSold &&

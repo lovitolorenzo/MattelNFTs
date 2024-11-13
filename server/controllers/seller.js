@@ -5,6 +5,7 @@ import Product from "../models/Product.js";
 import { verifyId, getIndexOfProduct } from "../utils/helpers.js";
 import sgMail from "@sendgrid/mail";
 import dotenv from "dotenv";
+import console from "console-browserify";
 
 dotenv.config();
 
@@ -65,18 +66,8 @@ const updateSellerProfile = asyncHandler(async (req, res) => {
 });
 
 const createProduct = asyncHandler(async (req, res) => {
-	let {
-		_id,
-		title,
-		category,
-		price,
-		brand,
-		description,
-		hasWarranty,
-		warrantyDuration,
-	} = req.body;
-	const warrantyDurationInSeconds =
-		parseInt(warrantyDuration) * 365 * 24 * 60 * 60;
+	let { _id, title, category, price, brand, description, hasWarranty, warrantyDuration } = req.body;
+	const warrantyDurationInSeconds = parseInt(warrantyDuration) * 365 * 24 * 60 * 60;
 
 	if (!title || !category || price < 1) {
 		res.status(400).json({ message: "Please Provide valid details" });
@@ -106,27 +97,14 @@ const createProduct = asyncHandler(async (req, res) => {
 });
 
 const getSellerProducts = asyncHandler(async (req, res) => {
-	const sellerProducts = await Seller.findById(req.seller._id)
-		.populate("products")
-		.exec();
+	const sellerProducts = await Seller.findById(req.seller._id).populate("products").exec();
 
 	const finalProducts = sellerProducts.products.map((product) => {
 		if (product.image) {
 			let buffer = Buffer.from(product.image);
 			let base64Image = buffer.toString("base64");
-			const {
-				title,
-				_id,
-				description,
-				price,
-				category,
-				brand,
-				createdBy,
-				createdAt,
-				updatedAt,
-				sold,
-				isReadyForSale,
-			} = product;
+			const { title, _id, description, price, category, brand, createdBy, createdAt, updatedAt, sold, isReadyForSale } =
+				product;
 			return {
 				image: base64Image,
 				_id,

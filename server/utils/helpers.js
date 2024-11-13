@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import console from "console-browserify";
 
 dotenv.config();
 

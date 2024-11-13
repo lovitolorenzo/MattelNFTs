@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import Seller from "../models/Seller.js";
+import console from "console-browserify";
 
 const sellerMiddleware = async (req, res, next) => {
 	const token = req.header("x-auth-seller-token");

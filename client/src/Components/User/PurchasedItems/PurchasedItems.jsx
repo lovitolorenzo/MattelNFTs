@@ -3,10 +3,9 @@ import classes from "./PurchasedItems.module.css";
 import { Card, ProductCard } from "../../UI";
 import trial1 from "../../../Assets/trial1.png";
 import { productContext } from "../../../Contexts";
-
+import console from "console-browserify";
 const PurchasedItems = () => {
-	const { getPurchasedProducts, purchasedProducts } =
-		useContext(productContext);
+	const { getPurchasedProducts, purchasedProducts } = useContext(productContext);
 
 	useEffect(() => {
 		getPurchasedProducts();
