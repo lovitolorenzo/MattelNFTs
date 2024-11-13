@@ -9,23 +9,26 @@ authenticity and security. <br>
 ● The brand/retailer should also be able to tie the digital NFT to its warranty program, allowing owners to trackrepairs and replacements to the original item.🤩<br>
 ● Decay the NFT once the warranty is over.🥸<br>
 ● WE used the Polygon blockchain to deploy our solution and demo the final product as a web prototype🔗<br>
+
 ## How to execute? 💻
 
 ### First install the packages using follow cmd:
+
 `npm install`
 
 `npm run install-all`
 
 ### Now start the project using concurrently:
-`npm start`
 
+`npm start`
 
 ## Tech Stack 💻
 
 ### WEB 3.0 :
-- Hardhat 
-- Moralis 
-- Solidity 
+
+- Hardhat
+- Moralis
+- Solidity
 - Ethereum
 
 ### Frontend :
