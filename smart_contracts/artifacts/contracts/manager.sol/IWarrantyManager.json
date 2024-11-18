@@ -1,0 +1,29 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IWarrantyManager",
+  "sourceName": "contracts/manager.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint64",
+          "name": "duration",
+          "type": "uint64"
+        }
+      ],
+      "name": "issueWarranty",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

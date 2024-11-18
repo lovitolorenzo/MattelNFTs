@@ -13,6 +13,18 @@
 		"sourceMap": true,
 		"rootDirs": ["./src", "./scripts", "./test"]
 	},
-	"include": ["test/**/*.ts", "scripts/**/*.ts", "src/**/*.ts", "test/nft.test.js", "test/manage.test.js"],
-	"exclude": ["node_modules", "dist"]
+	"include": [
+		"test/**/*.ts",
+		"scripts/**/*.ts",
+		"src/**/*.ts",
+		"test/nft.test.js",
+		"test/manage.test.js",
+		"./src",
+		"./scripts"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"./hardhat.config.ts" // Esclude il file se non necessario
+	]
 }

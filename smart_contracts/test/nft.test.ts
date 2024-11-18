@@ -124,8 +124,18 @@ describe("WarrantyNFT", function () {
 	});
 });
 
-describe("WarrantyNFT Fuzz Testing", function () {
-	let warrantyNFT, warrantyManager, admin, minter, user;
+describe("WarrantyNFT Fuzz Testing", async function () {
+	let [admin, minter, user] = await ethers.getSigners();
+
+	let WarrantyManager = await ethers.getContractFactory("WarrantyManager");
+	let warrantyManager = await upgrades.deployProxy(WarrantyManager, [admin.address, minter.address], {
+		initializer: "initialize",
+	});
+	let WarrantyNFT = await ethers.getContractFactory("WarrantyNFT");
+	let warrantyNFT = await upgrades.deployProxy(WarrantyNFT, [admin.address, minter.address, warrantyManager.address], {
+		initializer: "initialize",
+	});
+	await warrantyNFT.deployed();
 
 	beforeEach(async () => {
 		const [adminSigner, minterSigner, userSigner] = await ethers.getSigners();
@@ -188,8 +198,18 @@ describe("WarrantyNFT Fuzz Testing", function () {
 	});
 });
 
-describe("WarrantyNFT Invariant Testing", function () {
-	let warrantyNFT, warrantyManager, admin, minter, user;
+describe("WarrantyNFT Invariant Testing", async function () {
+	let [admin, minter, user] = await ethers.getSigners();
+
+	let WarrantyManager = await ethers.getContractFactory("WarrantyManager");
+	let warrantyManager = await upgrades.deployProxy(WarrantyManager, [admin.address, minter.address], {
+		initializer: "initialize",
+	});
+	let WarrantyNFT = await ethers.getContractFactory("WarrantyNFT");
+	let warrantyNFT = await upgrades.deployProxy(WarrantyNFT, [admin.address, minter.address, warrantyManager.address], {
+		initializer: "initialize",
+	});
+	await warrantyNFT.deployed();
 
 	beforeEach(async () => {
 		const [adminSigner, minterSigner, userSigner] = await ethers.getSigners();
